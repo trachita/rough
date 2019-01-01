@@ -29,4 +29,4 @@ Feature: Search Cheapest Flight on phptravel
     Examples: 
       | browserName |
       | chrome      |
-      #| firefox     |
+      | firefox     |

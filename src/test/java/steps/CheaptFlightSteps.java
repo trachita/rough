@@ -4,6 +4,10 @@ import java.util.List;
 
 import org.testng.Assert;
 
+import com.aventstack.extentreports.Status;
+
+import ExtentListeners.ExtentManager;
+import ExtentListeners.ExtentTestManager;
 import PageObjects.PhpTravelHomePage;
 import cucumber.api.DataTable;
 
@@ -17,9 +21,18 @@ import cucumber.api.java.en.When;
 public class CheaptFlightSteps extends BaseSteps {
 
 	public PhpTravelHomePage phpTravelHomePage;
+	
+	protected Scenario scenario;
+	static String scenarioName;
 
 	@Before
 	public synchronized void before(Scenario scenario) {
+		
+		this.scenario = scenario;
+		scenarioName = scenario.getName();
+		
+		ExtentTestManager.startTest("Scenario: " + scenario.getName());
+		ExtentTestManager.getTest().log(Status.INFO, "Scenario started : - " + scenario.getName());
 
 		setUpFramework();
 
@@ -27,6 +40,16 @@ public class CheaptFlightSteps extends BaseSteps {
 
 	@After
 	public void after(Scenario scenario) {
+		if (scenario.isFailed()) {
+
+			ExtentTestManager.logFail("Scenario Failed");
+			ExtentTestManager.addScreenShotsOnFailure();
+		} else {
+
+			ExtentTestManager.scenarioPass();
+		}
+
+		ExtentManager.getReporter().flush();
 
 		quit();
 
@@ -35,6 +58,9 @@ public class CheaptFlightSteps extends BaseSteps {
 	@Given("^launch browser '(.*?)'$")
 	public void launch_browser(String browserName) throws Throwable {
 
+		
+
+		//ExtentListeners.testReport.get().info("opening " + browserName);
 		openBrowser(browserName);
 
 	}

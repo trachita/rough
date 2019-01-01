@@ -30,7 +30,6 @@ public class BasePage<T> {
 		T page = null;
 		try {
 			driver = DriverManager.getDriver();
-
 			page = PageFactory.initElements(driver, clazz);
 
 		} catch (NoSuchElementException e) {

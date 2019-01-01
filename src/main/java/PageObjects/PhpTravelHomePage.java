@@ -114,8 +114,9 @@ public class PhpTravelHomePage extends BasePage {
 	}
 
 	public void selectTo(String str)  {
+		waitForElement(to);
 
-		actions.moveToElement(to).build().perform();
+		//actions.moveToElement(to).build().perform();
 		to.click();
 
 		WebElement overlayText = overlayDiv.findElement(By.className("select2-input"));
@@ -127,7 +128,7 @@ public class PhpTravelHomePage extends BasePage {
 		WebElement selectedLi = overlayList.findElement(By.tagName("li"));
 		if (selectedLi != null)
 			selectedLi.click();
-		// wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("select2-drop")));
+		//wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("select2-drop")));
 
 	}
 
